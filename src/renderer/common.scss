@@ -1,2 +1,25 @@
 $main-color: #4a90e2;
 $sub-color: #e5eefa;
+
+* {
+  user-select: none;
+  cursor: default;
+}
+
+.content {
+  padding-top: 50px;
+  box-sizing: border-box;
+}
+
+.full-size {
+  height: calc(100% - 70px);
+}
+
+.panel {
+  margin: 10px auto;
+  width: 95%;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}

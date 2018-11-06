@@ -35,10 +35,12 @@ export default {
 @import "@/common.scss";
 
 #header {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 60px;
   z-index: 9998;
+  top: 0;
+  left: 0;
 
   #header-button {
     cursor: pointer;

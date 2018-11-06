@@ -23,6 +23,7 @@ export default {
   box-sizing: border-box;
   position: fixed;
   left: 0px;
+  top: 0px;
   width: 280px;
   height: 100%;
   z-index: 9997;
