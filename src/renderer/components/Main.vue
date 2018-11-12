@@ -1,7 +1,7 @@
 <template>
   <div id="main" class="content">
     <div class="panel">
-      <button :class="started ? 'start-button start' : 'start-button'" @click="start">
+      <button :class="started ? 'start-button start' : 'start-button'" @click="startToggle">
         <transition name="fade" mode="out-in">
           <div class="wrap-wave idle" v-if="!started" :key="'idle'">
             <div class="wave w0"></div>
@@ -25,19 +25,17 @@
 <script>
 export default {
   name: 'app-main',
-  data () {
-    return {
-      started: false
-    }
-  },
   computed: {
+    started () {
+      return this.$store.state.started
+    },
     startButton () {
       return this.started ? 'Stop' : 'Start'
     }
   },
   methods: {
-    start () {
-      this.started = !this.started
+    startToggle () {
+      this.$store.commit('START_TOGGLE')
     }
   }
 }

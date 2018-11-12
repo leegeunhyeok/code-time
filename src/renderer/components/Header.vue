@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     drawerOpenState () {
-      return this.$store.state.drawerOpen
+      return this.$store.state.drawer
     }
   },
   methods: {

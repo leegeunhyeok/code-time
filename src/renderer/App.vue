@@ -27,13 +27,22 @@ export default {
       return !this.$store.state.loading
     },
     drawerOpenState () {
-      return this.$store.state.drawerOpen
+      return this.$store.state.drawer
     }
   }
 }
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: "NanumSquareRound";
+  src:url('./assets/fonts/NanumSquareRoundR.eot');
+  src:url('./assets/fonts/NanumSquareRoundR.eot#iefix') format('embedded-opentype'),
+  url('./assets/fonts/NanumSquareRoundR.woff') format('woff'),
+  url('./assets/fonts/NanumSquareRoundR.ttf') format('truetype');
+  src:local(¡Ø), url('./assets/fonts/NanumSquareRoundR.woff') format('woff');
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -41,6 +50,7 @@ html, body {
   height: 100%;
   font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
   background-color: #fff;
+  font-family: "NanumSquareRound";
 }
 
 #app {
