@@ -15,6 +15,7 @@
           </div>
         </transition>
       </button>
+      <div :class="started ? 'time-area running' : 'time-area'">{{ timeFormat }}</div>
     </div>
     <div class="panel">
       메인화면
@@ -31,11 +32,23 @@ export default {
     },
     startButton () {
       return this.started ? 'Stop' : 'Start'
+    },
+    timeFormat () {
+      return this.$store.state.data['total']
     }
   },
   methods: {
     startToggle () {
       this.$store.commit('START_TOGGLE')
+      try {
+        clearInterval(this.timer)
+      } catch (e) { }
+
+      if (this.$store.state.started) {
+        this.timer = setInterval(() => {
+          this.$store.commit('TIME_INCRESE')
+        }, 1000)
+      }
     }
   }
 }
@@ -141,6 +154,16 @@ export default {
 
   from {
     transform: rotate(360deg);
+  }
+}
+
+.time-area {
+  color: #888;
+  font-size: 1.6rem;
+  transition: .3s;
+
+  &.running {
+    color: $main-color;
   }
 }
 

@@ -13,6 +13,7 @@ import Loading from '@/components/Loading.vue'
 import Header from '@/components/Header.vue'
 import Drawer from '@/components/Drawer.vue'
 import DrawerBackground from '@/components/DrawerBackground.vue'
+import db from '@/module/database.js'
 
 export default {
   name: 'code-time',
@@ -29,6 +30,14 @@ export default {
     drawerOpenState () {
       return this.$store.state.drawer
     }
+  },
+  created () {
+    db.load().then(r => {
+      this.$store.commit('SET_DATA', r)
+      setTimeout(() => {
+        this.$store.commit('LOAD_DONE')
+      }, 1000)
+    })
   }
 }
 </script>

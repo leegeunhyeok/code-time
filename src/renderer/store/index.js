@@ -8,7 +8,7 @@ export default new Vuex.Store({
     loading: false,
     started: false,
     drawer: false,
-    userData: {}
+    data: {}
   },
   mutations: {
     START_TOGGLE (state) {
@@ -19,6 +19,14 @@ export default new Vuex.Store({
     },
     LOAD_DONE (state) {
       state.loading = true
+    },
+    SET_DATA (state, data) {
+      state.data = data
+    },
+    TIME_INCRESE (state) {
+      if (state['data'] && state.data['total'] !== undefined) {
+        state.data['total']++
+      }
     }
   },
   actions: {
