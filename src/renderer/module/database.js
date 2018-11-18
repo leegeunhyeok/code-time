@@ -22,7 +22,9 @@ class Database {
 
       fs.readFile(path.join(this.path, fileName), (err, data) => {
         if (err) {
-          reject(err)
+          this.save(defaultData).catch(e => {
+            reject(e)
+          })
         } else {
           if (!data) {
             this.save(defaultData).then(() => {
@@ -31,7 +33,11 @@ class Database {
               console.log(e)
             })
           } else {
-            resolve(JSON.parse(data))
+            try {
+              resolve(JSON.parse(data))
+            } catch (e) {
+              resolve(defaultData)
+            }
           }
         }
       })
