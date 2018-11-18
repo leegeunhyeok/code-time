@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import db from '@/module/database.js'
+
 export default {
   name: 'app-main',
   computed: {
@@ -34,20 +36,35 @@ export default {
       return this.started ? 'Stop' : 'Start'
     },
     timeFormat () {
-      return this.$store.state.data['total']
+      const second = this.$store.state.data['total']
+      const min = this.zeroFormat(parseInt(second / 60))
+      const sec = this.zeroFormat(parseInt(second % 60))
+      return `${min} : ${sec}`
     }
   },
   methods: {
     startToggle () {
       this.$store.commit('START_TOGGLE')
-      try {
-        clearInterval(this.timer)
-      } catch (e) { }
+      db.save(this.$store.state.data).then(() => {
+        try {
+          clearInterval(this.timer)
+        } catch (e) { }
 
-      if (this.$store.state.started) {
-        this.timer = setInterval(() => {
-          this.$store.commit('TIME_INCRESE')
-        }, 1000)
+        if (this.$store.state.started) {
+          this.timer = setInterval(() => {
+            this.$store.commit('TIME_INCRESE')
+          }, 1000)
+        }
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+    zeroFormat (num) {
+      const strNum = num.toString()
+      if (strNum.length >= 2) {
+        return strNum
+      } else {
+        return '0' + strNum
       }
     }
   }

@@ -11,6 +11,7 @@ const defaultData = {
 class Database {
   constructor () {
     this.path = (electron.app || electron.remote.app).getPath('userData')
+    console.log(this.path)
   }
 
   load () {
@@ -39,17 +40,24 @@ class Database {
 
   save (data) {
     return new Promise((resolve, reject) => {
-      if (!this.path) {
-        reject(new Error('Path is empty'))
-      }
-
-      fs.writeFile(path.join(this.path, fileName), data, {}, err => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve()
+      try {
+        const strData = JSON.stringify(data)
+        if (!this.path) {
+          reject(new Error('Path is empty'))
+        } else if (!strData) {
+          reject(new Error('Data is empty'))
         }
-      })
+
+        fs.writeFile(path.join(this.path, fileName), strData, {}, err => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve()
+          }
+        })
+      } catch (e) {
+        reject(e)
+      }
     })
   }
 }
